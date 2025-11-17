@@ -21,36 +21,38 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className="border-b border-slate-800/70 bg-slate-950/95"
+      className="border-b border-slate-200 bg-slate-50 dark:border-slate-800/70 dark:bg-slate-950/95"
     >
-      <div className="mx-auto max-w-5xl px-4 py-10">
-        <h2 className="text-lg font-semibold text-slate-50">
+      <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8">
+        <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50 sm:text-4xl">
           Selected Projects
         </h2>
-        <p className="mt-2 max-w-xl text-sm text-slate-400">
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-400 sm:text-lg">
           A few highlights that show how I approach system design, code quality,
           and collaboration.
         </p>
 
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
+        <div className="mt-10 space-y-6">
           {projects.map((project) => (
             <article
               key={project.name}
-              className="flex flex-col rounded-2xl border border-slate-800 bg-slate-900/80 p-4 shadow-lg shadow-slate-950/80"
+              className="group flex flex-col rounded-2xl border-2 border-slate-200 bg-white p-6 shadow-md transition-all hover:border-emerald-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900/80 dark:hover:border-emerald-700/50"
             >
-              <div className="flex items-baseline justify-between gap-2">
-                <h3 className="text-sm font-semibold text-slate-50">
+              <div className="flex items-baseline justify-between gap-3">
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-50">
                   {project.name}
                 </h3>
-                <span className="rounded-full bg-emerald-400/10 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.16em] text-emerald-300">
+                <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-emerald-700 dark:bg-emerald-400/10 dark:text-emerald-300">
                   {project.role}
                 </span>
               </div>
-              <p className="mt-1 text-xs text-slate-500">{project.period}</p>
-              <p className="mt-3 text-sm text-slate-200">
+              <p className="mt-2 text-sm font-medium text-slate-500 dark:text-slate-500">
+                {project.period}
+              </p>
+              <p className="mt-4 text-base leading-relaxed text-slate-700 dark:text-slate-200">
                 {project.description}
               </p>
-              <p className="mt-3 text-xs text-slate-400">
+              <p className="mt-4 text-sm font-medium text-slate-600 dark:text-slate-400">
                 {project.tech}
               </p>
             </article>

@@ -51,39 +51,43 @@ const Experience = () => {
   return (
     <section
       id="experience"
-      className="border-b border-slate-800/70 bg-slate-950"
+      className="border-b border-slate-200 bg-white dark:border-slate-800/70 dark:bg-slate-950"
     >
-      <div className="mx-auto max-w-5xl px-4 py-10">
-        <h2 className="text-lg font-semibold text-slate-50">Experience</h2>
-        <p className="mt-2 max-w-xl text-sm text-slate-400">
+      <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8">
+        <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50 sm:text-4xl">
+          Experience
+        </h2>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-400 sm:text-lg">
           I&apos;ve worked across airlines, education technology, and e-commerce,
           owning features end-to-end and collaborating with cross-functional
           teams.
         </p>
 
-        <div className="mt-6 space-y-4">
+        <div className="mt-10 space-y-6">
           {experience.map((item) => (
             <article
               key={item.company}
-              className="relative rounded-2xl border border-slate-800 bg-slate-900/80 p-4 shadow-lg shadow-slate-950/80"
+              className="group relative rounded-2xl border-2 border-slate-200 bg-white p-6 shadow-md transition-all hover:border-emerald-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900/80 dark:hover:border-emerald-700/50"
             >
-              <div className="absolute left-3 top-3 h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_0_4px_rgba(16,185,129,0.35)]" />
-              <header className="flex flex-col gap-1 pl-5 sm:flex-row sm:items-baseline sm:justify-between">
+              <div className="absolute left-4 top-4 h-3 w-3 rounded-full bg-emerald-500 shadow-[0_0_0_6px_rgba(16,185,129,0.15)] dark:bg-emerald-400 dark:shadow-[0_0_0_6px_rgba(16,185,129,0.25)]" />
+              <header className="flex flex-col gap-2 pl-6 sm:flex-row sm:items-baseline sm:justify-between">
                 <div>
-                  <h3 className="text-sm font-semibold text-slate-50">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50 sm:text-xl">
                     {item.role}
                   </h3>
-                  <p className="text-xs text-slate-400">
+                  <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
                     {item.company} · {item.location}
                   </p>
                 </div>
-                <span className="text-xs text-slate-500">{item.period}</span>
+                <span className="text-sm font-medium text-slate-500 dark:text-slate-500">
+                  {item.period}
+                </span>
               </header>
 
-              <p className="mt-3 pl-5 text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
+              <p className="mt-4 pl-6 text-sm font-semibold uppercase tracking-[0.15em] text-emerald-600 dark:text-emerald-400">
                 {item.stack}
               </p>
-              <ul className="mt-2 space-y-1.5 pl-8 text-sm text-slate-200">
+              <ul className="mt-4 space-y-2 pl-10 text-base leading-relaxed text-slate-700 dark:text-slate-200">
                 {item.bullets.map((b) => (
                   <li key={b} className="list-disc">
                     {b}
