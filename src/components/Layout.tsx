@@ -16,7 +16,9 @@ const Layout = ({ children }: LayoutProps) => {
             href="#top"
             className="flex items-center gap-3 text-sm font-semibold tracking-[0.15em] uppercase text-slate-700 dark:text-slate-300"
           >
-            <span className="h-8 w-8 rounded-xl bg-gradient-to-br from-emerald-400 via-cyan-400 to-indigo-400 shadow-[0_0_20px_rgba(16,185,129,0.9)] dark:shadow-[0_0_20px_rgba(16,185,129,0.9)]" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 via-cyan-400 to-indigo-400 shadow-[0_0_20px_rgba(16,185,129,0.9)] dark:shadow-[0_0_20px_rgba(16,185,129,0.9)]">
+              <span className="text-base font-bold text-white">B</span>
+            </div>
             <span>Bivan Alzacky Harmanto</span>
           </a>
 

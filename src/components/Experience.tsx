@@ -69,7 +69,7 @@ const Experience = () => {
               key={item.company}
               className="group relative rounded-2xl border-2 border-slate-200 bg-white p-6 shadow-md transition-all hover:border-emerald-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900/80 dark:hover:border-emerald-700/50"
             >
-              <div className="absolute left-4 top-4 h-3 w-3 rounded-full bg-emerald-500 shadow-[0_0_0_6px_rgba(16,185,129,0.15)] dark:bg-emerald-400 dark:shadow-[0_0_0_6px_rgba(16,185,129,0.25)]" />
+              <div className="absolute left-4 top-8 h-3 w-3 rounded-full bg-emerald-500 shadow-[0_0_0_6px_rgba(16,185,129,0.15)] dark:bg-emerald-400 dark:shadow-[0_0_0_6px_rgba(16,185,129,0.25)]" />
               <header className="flex flex-col gap-2 pl-6 sm:flex-row sm:items-baseline sm:justify-between">
                 <div>
                   <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50 sm:text-xl">
