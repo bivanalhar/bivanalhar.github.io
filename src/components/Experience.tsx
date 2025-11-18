@@ -13,10 +13,11 @@ const experience: ExperienceItem[] = [
     location: "Singapore",
     role: "Research Associate (Full-Stack Engineer) – Booking Simulator",
     period: "May 2025 – Present",
-    stack: "React TypeScript, Redux, Django, Python, UI/UX Design",
+    stack: "React TypeScript, Redux, Django, Python, UI/UX Design, Tensorflow, Keras",
     bullets: [
       "Lead end-to-end development of a booking simulator web application used by data and business analysts to configure weekly pricing scenarios and generate sales & revenue forecasts.",
       "Design backend services (Django, SQL) and React frontends for complex configuration workflows with strong data integrity, auditability, and performant queries over large flight and pricing datasets.",
+      "Developed and deployed a Transformer model for predicting customer itinerary selection, leveraging purchase context (origin/destination countries, purchase location), customer purchasing behavior profiles, and itinerary option features to enhance booking prediction accuracy.",
       "Collaborate with stakeholders to translate ambiguous business requirements into scoped technical designs, owning features from design to rollout and production support.",
     ],
   },
@@ -63,39 +64,67 @@ const Experience = () => {
           teams.
         </p>
 
-        <div className="mt-10 space-y-6">
-          {experience.map((item) => (
-            <article
-              key={item.company}
-              className="group relative rounded-2xl border-2 border-slate-200 bg-white p-6 shadow-md transition-all hover:border-emerald-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900/80 dark:hover:border-emerald-700/50"
-            >
-              <div className="absolute left-4 top-8 h-3 w-3 rounded-full bg-emerald-500 shadow-[0_0_0_6px_rgba(16,185,129,0.15)] dark:bg-emerald-400 dark:shadow-[0_0_0_6px_rgba(16,185,129,0.25)]" />
-              <header className="flex flex-col gap-2 pl-6 sm:flex-row sm:items-baseline sm:justify-between">
-                <div>
-                  <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50 sm:text-xl">
-                    {item.role}
-                  </h3>
-                  <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                    {item.company} · {item.location}
-                  </p>
-                </div>
-                <span className="text-sm font-medium text-slate-500 dark:text-slate-500">
-                  {item.period}
-                </span>
-              </header>
+        <div className="relative mt-10">
+          {/* Timeline line */}
+          <div className="absolute left-24 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-400 via-emerald-500 to-emerald-400 dark:from-emerald-500 dark:via-emerald-400 dark:to-emerald-500" />
 
-              <p className="mt-4 pl-6 text-sm font-semibold uppercase tracking-[0.15em] text-emerald-600 dark:text-emerald-400">
-                {item.stack}
-              </p>
-              <ul className="mt-4 space-y-2 pl-10 text-base leading-relaxed text-slate-700 dark:text-slate-200">
-                {item.bullets.map((b) => (
-                  <li key={b} className="list-disc">
-                    {b}
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
+          <div className="space-y-12">
+            {experience.map((item) => {
+              // Split on " – " (en dash with spaces)
+              const separator = " – ";
+              const parts = item.period.split(separator);
+              const startDate = parts[0];
+              const endDate = parts[1] || "Present";
+              const isPresent = endDate === "Present";
+
+              return (
+                <article
+                  key={item.company}
+                  className="group relative flex gap-8"
+                >
+                  {/* Timeline dates */}
+                  <div className="flex w-20 flex-shrink-0 flex-col items-end gap-1 pt-1">
+                    <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                      {startDate}
+                    </span>
+                    {!isPresent && (
+                      <span className="text-xs font-semibold text-slate-400 dark:text-slate-500">
+                        {endDate}
+                      </span>
+                    )}
+                    {isPresent && (
+                      <span className="text-xs font-semibold text-emerald-500 dark:text-emerald-400">
+                        Present
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Content - integrated with timeline */}
+                  <div className="flex-1 pl-2 pb-8 transition-colors">
+                    <header className="mb-4">
+                      <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50 sm:text-xl">
+                        {item.role}
+                      </h3>
+                      <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+                        {item.company} · {item.location}
+                      </p>
+                    </header>
+
+                    <p className="mb-4 text-sm font-semibold uppercase tracking-[0.15em] text-emerald-600 dark:text-emerald-400">
+                      {item.stack}
+                    </p>
+                    <ul className="space-y-2.5 text-base leading-relaxed text-slate-700 dark:text-slate-200">
+                      {item.bullets.map((b) => (
+                        <li key={b} className="relative pl-6 before:absolute before:left-0 before:top-2 before:h-1.5 before:w-1.5 before:rounded-full before:bg-emerald-500 dark:before:bg-emerald-400">
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
