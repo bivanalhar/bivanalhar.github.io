@@ -20,6 +20,14 @@ const Game = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const previousTitle = document.title;
+    document.title = "Bivan - Game Night";
+    return () => {
+      document.title = previousTitle;
+    };
+  }, []);
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setError("");
