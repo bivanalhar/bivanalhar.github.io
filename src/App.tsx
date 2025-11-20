@@ -14,7 +14,7 @@ function App() {
           </Layout>
         }
       />
-      <Route path="/game_201125" element={<Game />} />
+      <Route path="/game" element={<Game />} />
     </Routes>
   );
 }

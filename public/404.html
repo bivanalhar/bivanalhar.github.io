@@ -48,16 +48,11 @@
       <p>Loading your page…</p>
     </div>
     <script>
-      fetch("./index.html", { cache: "no-cache" })
-        .then((response) => response.text())
-        .then((html) => {
-          document.open();
-          document.write(html);
-          document.close();
-        })
-        .catch(() => {
-          window.location.href = "./";
-        });
+      // Store the original path and redirect to root
+      // The SPA will read this and navigate to the correct route
+      var path = window.location.pathname + window.location.search + window.location.hash;
+      sessionStorage.setItem('redirectPath', path);
+      window.location.replace('/');
     </script>
   </body>
 </html>

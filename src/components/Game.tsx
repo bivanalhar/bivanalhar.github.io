@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
-import { gameData } from "../constants/gameData";
+import { gameData, type GameData } from "../constants/gameData";
+import { useTheme } from "../contexts/ThemeContext";
 
 const Game = () => {
+  const { theme, toggleTheme } = useTheme();
   const [inputNumber, setInputNumber] = useState<string>("");
   const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
-  const [level, setLevel] = useState<number | null>(null);
-  const [question, setQuestion] = useState<string | null>(null);
+  const [selectedGameData, setSelectedGameData] = useState<GameData | null>(null);
   const [error, setError] = useState<string>("");
   const [stage, setStage] = useState<"input" | "result">("input");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -46,8 +47,7 @@ const Game = () => {
     ) {
       setError("Please enter a valid integer between 1 and 48");
       setSelectedNumber(null);
-      setLevel(null);
-      setQuestion(null);
+      setSelectedGameData(null);
       return;
     }
 
@@ -56,16 +56,14 @@ const Game = () => {
     if (!data) {
       setError("Data not found for this number");
       setSelectedNumber(null);
-      setLevel(null);
-      setQuestion(null);
+      setSelectedGameData(null);
       return;
     }
 
     setIsLoading(true);
     timerRef.current = window.setTimeout(() => {
       setSelectedNumber(num);
-      setLevel(data.level);
-      setQuestion(data.question);
+      setSelectedGameData(data);
       setStage("result");
       setIsLoading(false);
     }, 2000);
@@ -74,14 +72,50 @@ const Game = () => {
   const handleReset = () => {
     setStage("input");
     setSelectedNumber(null);
-    setLevel(null);
-    setQuestion(null);
+    setSelectedGameData(null);
     setInputNumber("");
     setError("");
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 px-4 sm:px-6 lg:px-8 flex items-center justify-center relative">
+      {/* Theme Toggle Button */}
+      <button
+        onClick={toggleTheme}
+        className="fixed top-4 right-4 z-10 p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-slate-200 dark:border-slate-700 shadow-lg"
+        aria-label="Toggle theme"
+      >
+        {theme === "dark" ? (
+          <svg
+            className="w-5 h-5 text-slate-600 dark:text-slate-300"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+            />
+          </svg>
+        ) : (
+          <svg
+            className="w-5 h-5 text-slate-600 dark:text-slate-300"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+            />
+          </svg>
+        )}
+      </button>
+
       <div className="w-full max-w-4xl mx-auto py-12">
         <div className="text-center mb-10">
           <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-4">
@@ -136,7 +170,7 @@ const Game = () => {
           </div>
         )}
 
-        {stage === "result" && selectedNumber !== null && level !== null && question !== null && (
+        {stage === "result" && selectedNumber !== null && selectedGameData !== null && (
           <div className="space-y-8">
             <div className="flex justify-center">
               <div className="inline-flex flex-col items-center">
@@ -154,24 +188,24 @@ const Game = () => {
             <div className="max-w-3xl mx-auto space-y-6">
               <div
                 className={`rounded-2xl shadow-xl p-8 border transition-all ${
-                  level === 1
-                    ? "bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50 dark:from-blue-950/30 dark:via-cyan-950/30 dark:to-teal-950/30 border-blue-200/50 dark:border-blue-800/50"
-                    : level === 2
-                    ? "bg-gradient-to-br from-purple-100 via-pink-100 to-rose-100 dark:from-purple-950/50 dark:via-pink-950/50 dark:to-rose-950/50 border-purple-300/50 dark:border-purple-700/50"
-                    : "bg-gradient-to-br from-indigo-200 via-purple-200 to-violet-200 dark:from-indigo-950/70 dark:via-purple-950/70 dark:to-violet-950/70 border-indigo-400/50 dark:border-indigo-600/50"
+                  selectedGameData?.level === 1
+                    ? "bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 dark:from-amber-950/40 dark:via-yellow-950/40 dark:to-orange-950/40 border-amber-200/60 dark:border-amber-800/60"
+                    : selectedGameData?.level === 2
+                    ? "bg-gradient-to-br from-purple-100 via-pink-100 to-rose-100 dark:from-purple-950/60 dark:via-pink-950/60 dark:to-rose-950/60 border-purple-300/60 dark:border-purple-700/60"
+                    : "bg-gradient-to-br from-blue-200 via-indigo-200 to-violet-200 dark:from-blue-950/80 dark:via-indigo-950/80 dark:to-violet-950/80 border-blue-400/60 dark:border-blue-600/60"
                 }`}
               >
                 <div className="min-h-[120px] flex items-center justify-center">
                   <p
                     className={`text-lg text-center font-medium ${
-                      level === 1
-                        ? "text-slate-700 dark:text-slate-300"
-                        : level === 2
-                        ? "text-slate-800 dark:text-slate-200"
-                        : "text-slate-900 dark:text-slate-100"
+                      selectedGameData?.level === 1
+                        ? "text-amber-900 dark:text-amber-100"
+                        : selectedGameData?.level === 2
+                        ? "text-purple-900 dark:text-purple-100"
+                        : "text-blue-900 dark:text-blue-100"
                     }`}
                   >
-                    {question}
+                    {selectedGameData?.question || ""}
                   </p>
                 </div>
               </div>
